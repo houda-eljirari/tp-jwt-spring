@@ -49,49 +49,49 @@ L'application démarre sur `http://localhost:8080`.
 
 `POST /auth/register`
 
-![Inscription](docs/images/01-register.png)
+![Inscription](screenshots/01-register.png)
 
 ### 2. Inscription avec un email déjà utilisé
 
 L'API refuse le doublon (400).
 
-![Inscription en double](docs/images/02-register-duplicate.png)
+![Inscription en double](screenshots/02-register-duplicate.png)
 
 ### 3. Connexion et récupération du token
 
 `POST /auth/login`
 
-![Login](docs/images/03-login.png)
+![Login](screenshots/03-login.png)
 
 ### 4. Accès à un endpoint protégé sans token
 
 `GET /api/hello` sans en-tête `Authorization` : accès refusé.
 
-![Sans token](docs/images/04-hello-sans-token.png)
+![Sans token](screenshots/04-hello-sans-token.png)
 
 ### 5. Accès avec un token valide
 
 `GET /api/hello` avec `Authorization: Bearer <token>`.
 
-![Avec token](docs/images/05-hello-avec-token.png)
+![Avec token](screenshots/05-hello-avec-token.png)
 
 ### 6. Profil de l'utilisateur connecté
 
 `GET /api/profile`
 
-![Profil](docs/images/06-profile.png)
+![Profil](screenshots/06-profile.png)
 
 ### 7. Token invalide
 
 Un token modifié est rejeté.
 
-![Token invalide](docs/images/07-token-invalide.png)
+![Token invalide](screenshots/07-token-invalide.png)
 
 ### 8. Base H2 : mot de passe haché (BCrypt)
 
 Console H2 : `http://localhost:8080/h2-console` (JDBC URL : `jdbc:h2:mem:securitydb`).
 
-![Base H2](docs/images/09-h2.png)
+![Base H2](screenshots/09-h2.png)
 
 ## Fonctionnement
 
