@@ -21,38 +21,38 @@ public class JwtService {
     private long expiration;
 
     private SecretKey getSigningKey() {
-        byte[] keyBytes = Decoders.BASE64.decode(secret); //
-        return Keys.hmacShaKeyFor(keyBytes); //[cite: 2]
+        byte[] keyBytes = Decoders.BASE64.decode(secret);
+        return Keys.hmacShaKeyFor(keyBytes);
     }
 
     public String generateToken(UserDetails userDetails) {
-        return Jwts.builder() //[cite: 2]
-                .subject(userDetails.getUsername()) //[cite: 2]
-                .issuedAt(new Date()) //[cite: 2]
-                .expiration(new Date(System.currentTimeMillis() + expiration)) //[cite: 2]
-                .signWith(getSigningKey()) //[cite: 2]
-                .compact(); //[cite: 2]
+        return Jwts.builder()
+                .subject(userDetails.getUsername())
+                .issuedAt(new Date())
+                .expiration(new Date(System.currentTimeMillis() + expiration))
+                .signWith(getSigningKey())
+                .compact();
     }
 
     public String extractUsername(String token) {
-        return extractAllClaims(token).getSubject(); //[cite: 2]
+        return extractAllClaims(token).getSubject();
     }
 
     private Claims extractAllClaims(String token) {
-        return Jwts.parser() //[cite: 3]
-                .verifyWith(getSigningKey()) //[cite: 3]
-                .build() //[cite: 3]
-                .parseSignedClaims(token) //[cite: 3]
-                .getPayload(); //[cite: 3]
+        return Jwts.parser()
+                .verifyWith(getSigningKey())
+                .build()
+                .parseSignedClaims(token)
+                .getPayload();
     }
 
     public boolean isTokenValid(String token, UserDetails userDetails) {
-        String username = extractUsername(token); //[cite: 3]
-        return username.equals(userDetails.getUsername()) && !isTokenExpired(token); //[cite: 3]
+        String username = extractUsername(token);
+        return username.equals(userDetails.getUsername()) && !isTokenExpired(token);
     }
 
     private boolean isTokenExpired(String token) {
-        Date expiration = extractAllClaims(token).getExpiration(); //[cite: 3]
-        return expiration.before(new Date()); //[cite: 3]
+        Date expiration = extractAllClaims(token).getExpiration();
+        return expiration.before(new Date());
     }
 }
